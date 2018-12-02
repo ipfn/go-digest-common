@@ -15,13 +15,13 @@
 package digest
 
 import (
+	"encoding/hex"
 	"testing"
 
-	multihash "gx/ipfs/QmerPMzPk1mJVowm8KgmoknWa4yCYvvugMPsgWmDNUvDLW/go-multihash"
-
-	"github.com/ipfn/ipfn/pkg/utils/hexutil"
-	"github.com/minio/sha256-simd"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/minio/sha256-simd"
+	multihash "github.com/multiformats/go-multihash"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -55,13 +55,24 @@ func TestHashEncoding(t *testing.T) {
 	hash := HashFromDigest(Sha2_256, hashed)
 	assert.Equal(t, hash.Digest(), hashed[:])
 	assert.Equal(t, hash.Size(), Size)
+	assert.Equal(t, hash.Size(), len(hash.Digest()))
 
-	h2o, err := DecodeHash(hexutil.FromString("12209f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"))
+	h2o, err := DecodeHashHex("12209f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08")
 	assert.Equal(t, err, nil)
 	assert.Equal(t, h2o.Algorithm(), hash.Algorithm())
 	assert.Equal(t, h2o.Size(), Size)
 	assert.Equal(t, h2o.Digest(), hashed[:])
 	assert.Equal(t, h2o.Bytes(), HashFromDigest(Sha2_256, hashed).Bytes())
+}
+
+func TestHashDecodeKeccak256(t *testing.T) {
+	hash, err := DecodeHashHex("1b2047173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad")
+	assert.Equal(t, err, nil)
+	assert.Equal(t, hash.Algorithm(), Keccak256)
+	assert.Equal(t, hash.Size(), len(hash.Digest()))
+	assert.Equal(t, hash.Size(), Size)
+	fromhex, _ := hex.DecodeString("47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad")
+	assert.Equal(t, hash.Digest(), fromhex)
 }
 
 func TestHashFromDigest(t *testing.T) {

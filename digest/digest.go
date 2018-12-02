@@ -53,7 +53,7 @@ func SumBytes(h hash.Hash, data ...[]byte) (digest []byte) {
 	return h.Sum(nil)
 }
 
-// FromHex - Creates hash digest from parsed hex hash.
+// FromHex - Creates digest from hex string.
 func FromHex(src string) (digest Digest) {
 	hex.Decode(digest[:], []byte(src))
 	return

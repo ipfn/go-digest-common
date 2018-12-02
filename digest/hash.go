@@ -16,8 +16,7 @@ package digest
 
 import (
 	"bytes"
-
-	"github.com/ipfn/ipfn/pkg/utils/hexutil"
+	"encoding/hex"
 )
 
 // Hash - Common hash interface.
@@ -80,7 +79,7 @@ func (hash customHash) Bytes() []byte {
 
 // String - Hash hex string.
 func (hash customHash) String() string {
-	return hexutil.ToString(hash.body[:])
+	return hex.EncodeToString(hash.body[:])
 }
 
 // Size - Hash bytes size.

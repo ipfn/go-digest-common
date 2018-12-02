@@ -73,6 +73,15 @@ func DecodeHash(input []byte) (_ Hash, err error) {
 	}, nil
 }
 
+// DecodeHashHex - Decodes multihash hex string.
+func DecodeHashHex(input string) (_ Hash, err error) {
+	body, err := hex.DecodeString(input)
+	if err != nil {
+		return
+	}
+	return DecodeHash(body)
+}
+
 // HashFromSum - Constructs common hash interface from computed hash and algorithm ID.
 // It must encode multihash body structure first.
 func HashFromSum(algo Type, digest []byte) Hash {
