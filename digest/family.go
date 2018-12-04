@@ -36,9 +36,9 @@ const (
 	// FamilyShake - Shake hashing algorithm.
 	FamilyShake Family = 0x19
 	// FamilyBlake2b - Blake2B hashing algorithm.
-	FamilyBlake2b Family = 0xb201
+	FamilyBlake2b Family = 0xb220
 	// FamilyBlake2s - Blake2S hashing algorithm.
-	FamilyBlake2s Family = 0xb241
+	FamilyBlake2s Family = 0xb260
 	// FamilyDoubleSha2 - Double SHA2 hashing algorithm.
 	FamilyDoubleSha2 Family = 0x56
 	// FamilyMurmur3 - MURMUR3 hashing algorithm.
