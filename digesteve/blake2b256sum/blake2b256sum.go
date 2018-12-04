@@ -12,29 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package digest
+package blake2b256sum
 
 import (
-	keccak "github.com/gxed/hashland/keccakpg"
-	"github.com/minio/sha256-simd"
+	blake2b "github.com/minio/blake2b-simd"
+
+	"github.com/ipfn/go-digest/digest"
 )
 
-// SumKeccak256 - Sums Keccak256 secure hash.
-func SumKeccak256(data ...[]byte) Digest {
-	return Sum(keccak.New256(), data...)
+// Bytes - Sums blake2b secure hash.
+func Bytes(data ...[]byte) []byte {
+	return digest.SumBytes(blake2b.New256(), data...)
 }
 
-// SumSha256 - Sums Sha256 secure hash.
-func SumSha256(data ...[]byte) Digest {
-	return Sum(sha256.New(), data...)
-}
-
-// SumKeccak256Bytes - Sums Keccak256 secure hash.
-func SumKeccak256Bytes(data ...[]byte) []byte {
-	return SumBytes(keccak.New256(), data...)
-}
-
-// SumSha256Bytes - Sums Sha256 secure hash.
-func SumSha256Bytes(data ...[]byte) []byte {
-	return SumBytes(sha256.New(), data...)
+// Digest - Sums blake2b secure hash.
+func Digest(data ...[]byte) digest.Digest {
+	return digest.Sum(blake2b.New256(), data...)
 }
