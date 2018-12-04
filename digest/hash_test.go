@@ -115,3 +115,8 @@ func TestSumKeccak256(t *testing.T) {
 	digest := FromHex("9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658")
 	assert.Equal(t, digest, hashed)
 }
+
+func TestBlakez(t *testing.T) {
+	assert.Equal(t, "blake2b-256", Blake2b256.String())
+	assert.Equal(t, "blake2s-256", Blake2sMax.String())
+}

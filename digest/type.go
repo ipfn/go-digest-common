@@ -53,6 +53,8 @@ const (
 	Blake2bMin Type = 0xb201
 	// Blake2bMax - Blake2B MAX hashing algorithm.
 	Blake2bMax Type = 0xb240
+	// Blake2b_256 - Blake2B MAX hashing algorithm.
+	Blake2b256 Type = 0xb220
 	// Blake2sMin - Blake2S MIN hashing algorithm.
 	Blake2sMin Type = 0xb241
 	// Blake2sMax - Blake2S MAX hashing algorithm.
@@ -101,6 +103,24 @@ var Types = map[string]Type{
 	"keccak-512":   Keccak512,
 	"shake-128":    Shake128,
 	"shake-256":    Shake256,
+}
+
+func init() {
+	// Add blake2b (64 codes)
+	for c := Blake2bMin; c <= Blake2bMax; c++ {
+		n := c - Blake2bMin + 1
+		name := fmt.Sprintf("blake2b-%d", n*8)
+		Names[c] = name
+		Types[name] = c
+	}
+
+	// Add blake2s (32 codes)
+	for c := Blake2sMin; c <= Blake2sMax; c++ {
+		n := c - Blake2sMin + 1
+		name := fmt.Sprintf("blake2s-%d", n*8)
+		Names[c] = name
+		Types[name] = c
+	}
 }
 
 // NewType - Creates new hash name from string.
