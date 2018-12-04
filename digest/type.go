@@ -145,6 +145,12 @@ func (t Type) Family() Family {
 	case Shake256:
 		return FamilyShake
 	default:
+		if t > Blake2bMin && t < Blake2bMax {
+			return FamilyBlake2b
+		}
+		if t > Blake2sMin && t < Blake2sMax {
+			return FamilyBlake2s
+		}
 		return FamilyUnknown
 	}
 }
